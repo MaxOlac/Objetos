@@ -1,5 +1,5 @@
 class LayingHen
-
+  attr_reader :age
   def initialize
     @age=0
     @eggs=[]
@@ -32,13 +32,15 @@ class LayingHen
   end
 
   def increase_hatched_hour(hours)
+    @eggs.each{|x| x.hatched_hours = hours}
   end
 end
 
 class Egg
+  attr_accessor :hatched_hours
   # Initializes a new Egg with hatched hours +hatched_hours+
   def initialize
-    @hatched_hours
+    @hatched_hours=0
   end
 
   # Return +true+ if hatched hours is greater than 3, +false+ otherwise
