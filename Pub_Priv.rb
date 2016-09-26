@@ -2,28 +2,32 @@ class Employee
   attr_accessor :email, :name, :deposit_account
   attr_writer :salary
   def initialize (name, email, salary, deposit_account)
-    @name = name.capitalize
+    @name = name
     @email = email
     @salary = salary
     @deposit_account = deposit_account.to_s
   end
   def to_s
-    "#{@name} <email:#{@email}> acct: #{esconde_cuenta}"
+    "#{@name} <email: #{@email}> acct: #{esconde_cuenta}"
   end
+
   private
   def esconde_cuenta
-    @deposit_account.sub\(/\d{3}\-\d{2}/,'*****')
+    @deposit_account.gsub(/-/,"").sub(/\d{5}/,'*****')
   end
+
   private
   def coefficient
     coefficients = { 1 => 0...1_000, 1.2 => 1_000...2_000, 1.4 => 2_000...5_000, 1.5 => 5_000..10_000 }
 
     coefficients.find { |coefficient, range| range.include? @salary }.first
   end
+
   public
   def vacation_days
     coefficient * 7  
   end
+
   public 
   def bonus
     coefficient * 1000
